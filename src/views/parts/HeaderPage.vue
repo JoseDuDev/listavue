@@ -3,11 +3,10 @@
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">
         <img
-          src="https://placekitten.com/g/30/30"
-          class="d-inline-block align-top"
-          alt="Kitten"
+          class="robot"
+          src="../../assets/img/logo30x120.png"
+          aria-hidden="true"
         />
-        MM Listas
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
