@@ -6,17 +6,22 @@
     <main>
       <router-view />
     </main>
+    <footer class="page-footer font-small blue">
+      <Rodape />
+    </footer>
   </div>
 </template>
 
 <script>
 import HeaderPage from "./views/parts/HeaderPage.vue";
+import Rodape from "./views/parts/Rodape.vue";
 
 export default {
   name: "App",
   computed: {},
   components: {
-    HeaderPage
+    HeaderPage,
+    Rodape
   }
 };
 </script>
