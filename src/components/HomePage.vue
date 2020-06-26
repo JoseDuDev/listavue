@@ -1,20 +1,61 @@
 <template>
   <div class="home">
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col
+          ><img class="imglista" src="../assets/img/lista0.png" alt=""
+        /></b-col>
+        <b-col>
+          <h1>{{ titulo }}</h1>
+          <h3>{{ subtitulo }}</h3>
+          <p class="ptitle">
+            Crie e gerencie sua lista de compras de supermercados, após,
+            compartilhe para seus aplicativos ou envie para seus amigos.
+          </p>
+        </b-col>
+      </b-row>
+    </b-container>
+
     <div>
-      Listas criadas
-    </div>
-    <div class="get-started">
-      <router-link class="nav-link" to="/criar">Criar </router-link> a sua
-      lista!
+      <b-card title="" sub-title="">
+        <b-card-text>
+          Você pode se cadastrar e manter armazenadas as suas listas ou apenas
+          criar a lista e compartilhar com suas redes sociais.
+        </b-card-text>
+
+        <b-card-text>Para isso selecione um dos links abaixo:</b-card-text>
+
+        <router-link to="/usuario" class="card-link">Criar usuário</router-link>
+        <b-link href="#" class="card-link">Gerar uma lista</b-link>
+      </b-card>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HomePage"
+  name: "HomePage",
+  computed: {
+    titulo() {
+      return this.$store.state.titulo;
+    },
+    subtitulo() {
+      return this.$store.state.subtitulo;
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.imagem {
+  background-repeat: no-repeat;
+  background-image: url("../assets/img/lista0.png");
+  background-attachment: fixed;
+  width: 350px;
+}
+.imglista {
+  width: 100%;
+  padding: 20px;
+}
+</style>

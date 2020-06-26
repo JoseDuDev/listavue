@@ -6,27 +6,29 @@
     <main>
       <router-view />
     </main>
-    <footer class="page-footer font-small blue">
-      <Rodape />
-    </footer>
   </div>
 </template>
 
 <script>
 import HeaderPage from "./views/parts/HeaderPage.vue";
-import Rodape from "./views/parts/Rodape.vue";
 
 export default {
   name: "App",
   computed: {},
   components: {
-    HeaderPage,
-    Rodape
+    HeaderPage
   }
 };
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Dancing+Script:wght@700&family=Indie+Flower&display=swap");
+
+* {
+  font-family: "Indie Flower", cursive;
+  font-family: "Gloria Hallelujah", cursive;
+  font-family: "Dancing Script", cursive;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

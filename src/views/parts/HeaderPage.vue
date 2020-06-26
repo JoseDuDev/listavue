@@ -2,11 +2,9 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">
-        <img
-          class="robot"
-          src="../../assets/img/logo30x120.png"
-          aria-hidden="true"
-        />
+        <router-link to="/">
+          <img src="../../assets/img/logo30x120.png" aria-hidden="true" />
+        </router-link>
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -14,7 +12,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item router-link to="/" href="#">Home</b-nav-item>
-          <b-nav-item router-link to="/about" href="#">Sobre</b-nav-item>
+          <b-nav-item router-link to="/sobre" href="#">Sobre</b-nav-item>
           <b-nav-item href="#" disabled>Disabled</b-nav-item>
         </b-navbar-nav>
 
