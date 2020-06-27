@@ -1,7 +1,8 @@
 import Vue from "vue";
-import VueRouter from "vue-router";
+import Router from "vue-router";
+import store from "../store/index";
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
 const routes = [
   {
@@ -11,17 +12,63 @@ const routes = [
       import(/* webpackChunkName: "home" */ "../components/HomePage.vue")
   },
   {
+    path: "/listas",
+    name: "Listas",
+    component: () =>
+      import(/* webpackChunkName: "home" */ "../components/Listas.vue"),
+    async beforeEnter(to, from, next) {
+      console.log(store.state);
+      if (store.state.usuario) {
+        next();
+      } else {
+        next({ path: "/usuario" });
+      }
+    }
+  },
+  {
     path: "/usuario",
     name: "Usuário",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/formularios/Usuario.vue")
+      import(
+        /* webpackChunkName: "usuario" */ "../views/formularios/Usuario.vue"
+      ),
+    async beforeEnter(to, from, next) {
+      console.log(store.state);
+      if (!store.state.usuario) {
+        next();
+      } else {
+        next({ path: "/listas" });
+      }
+    }
   },
-
+  {
+    path: "/entrar",
+    name: "Entrar",
+    component: () =>
+      import(
+        /* webpackChunkName: "usuario" */ "../views/formularios/Entrar.vue"
+      ),
+    async beforeEnter(to, from, next) {
+      console.log("entrar");
+      console.log(store.state);
+      if (!store.state.usuario) {
+        next();
+      } else {
+        next({ path: "/listas" });
+      }
+    }
+  },
   {
     path: "/sobre",
     name: "Sobre",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
+  },
+  {
+    path: "/nao-autorizado",
+    name: "Usuário não autorizado",
+    component: () =>
+      import(/* webpackChunkName: 'erro401' */ "../views/paginas/Erro401.vue")
   },
   {
     path: "*",
@@ -31,7 +78,7 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
+const router = new Router({
   routes
 });
 

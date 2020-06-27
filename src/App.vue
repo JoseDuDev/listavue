@@ -22,12 +22,10 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Dancing+Script:wght@700&family=Indie+Flower&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Ubuntu:wght@500&display=swap");
 * {
-  font-family: "Indie Flower", cursive;
-  font-family: "Gloria Hallelujah", cursive;
-  font-family: "Dancing Script", cursive;
+  font-family: "Montserrat", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

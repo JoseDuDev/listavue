@@ -1,52 +1,60 @@
 <template>
   <div>
+    <b-form-group id="input-group-2" label="Seu Nome:" label-for="input-2">
+      <b-form-input
+        id="input-2"
+        v-model="form.name"
+        required
+        placeholder="Digite seu nome"
+      ></b-form-input>
+    </b-form-group>
+
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group
         id="input-group-1"
-        label="Email address:"
+        label="Seu E-mail:"
         label-for="input-1"
-        description="We'll never share your email with anyone else."
+        description="Será seu ID de acesso."
       >
         <b-form-input
           id="input-1"
           v-model="form.email"
           type="email"
           required
-          placeholder="Enter email"
+          placeholder="Digite seu e-mail"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+      <b-form-group id="input-group-2" label="Sua senha:" label-for="input-1">
         <b-form-input
-          id="input-2"
-          v-model="form.name"
+          id="pass"
+          v-model="form.pass"
+          type="password"
           required
-          placeholder="Enter name"
+          placeholder="Digite sua senha"
+        ></b-form-input>
+        <label>Redigite sua senha</label>
+        <b-form-input
+          id="repass"
+          v-model="form.repass"
+          type="password"
+          required
+          placeholder="Redigite sua senha"
         ></b-form-input>
       </b-form-group>
+      <div class="col-8 align-self-center text-left">
+        <el-alert
+          title="Ocorreu um erro"
+          v-if="erro"
+          :description="'Descrição: ' + msgErro + ''"
+          type="error"
+          show-icon
+        ></el-alert>
+      </div>
 
-      <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-        <b-form-select
-          id="input-3"
-          v-model="form.food"
-          :options="foods"
-          required
-        ></b-form-select>
-      </b-form-group>
-
-      <b-form-group id="input-group-4">
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary">Criar</b-button>&nbsp;&nbsp;
+      <b-button type="reset" variant="secondary">Entrar</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>
   </div>
 </template>
 
@@ -57,36 +65,57 @@ export default {
       form: {
         email: "",
         name: "",
-        food: null,
-        checked: []
+        pass: "",
+        repass: ""
       },
-      foods: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn"
-      ],
-      show: true
+      show: true,
+      erro: false
     };
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
+      this.$router.push({
+        name: "Entrar"
       });
+    },
+    async onSubmit(evt) {
+      if (this.form.pass === this.form.repass) {
+        this.$store.state.aguardandoServidor = true;
+        evt.preventDefault();
+        const dados = {
+          nome: this.form.name,
+          email: this.form.email,
+          senha: this.form.pass
+        };
+        let body = {
+          ...dados
+        };
+        console.log(body);
+        await this.$axios_NODE({
+          url: "/api/usuario",
+          method: "post",
+          data: JSON.stringify(body)
+        })
+          .then(() => {
+            this.$store.dispatch(
+              { type: "act_usuario_atual", usuario: body },
+              true
+            );
+            this.$router.push({
+              name: "Listas",
+              params: { usuario: this.$store.state.usuario }
+            });
+          })
+          .catch(err => {
+            this.erro = true;
+            this.msgErro = err.message;
+          })
+          .finally(() => {
+            this.$store.state.aguardandoServidor = false;
+          });
+      } else alert("A senha precisa ser igual a redigitação da senha");
     }
   }
 };

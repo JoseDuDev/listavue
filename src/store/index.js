@@ -6,12 +6,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    aguardandoServidor: false,
     titulo: "MM Listas",
     subtitulo: "Gerenciador de listas",
     produtos: [],
     listas: [],
     setores: [],
-    marcas: []
+    marcas: [],
+    usuarios: [],
+    usuario: null,
+    mensagemSemPermissao: {}
   },
   mutations: {
     set_produtos(state, data) {
@@ -29,6 +33,18 @@ export default new Vuex.Store({
     set_listas(state, data) {
       console.log(data);
       state.listas = data;
+    },
+    set_mensagemSemPermissao(state, data) {
+      console.log(data);
+      state.marcas = data;
+    },
+    set_usuario(state, data) {
+      console.log(data);
+      state.usuarios = data;
+    },
+    set_usuario_atual(state, data) {
+      console.log(data);
+      state.usuario = data;
     }
   },
   actions: {
@@ -55,6 +71,31 @@ export default new Vuex.Store({
         .get("/api/lista")
         .then(result => commit("set_listas", result.data))
         .catch(console.error);
+    },
+    async act_usuario({ commit }) {
+      axios
+        .get("/api/usuario")
+        .then(result => commit("set_usuario", result.data))
+        .catch(console.error);
+    },
+    async act_usuario_atual({ commit, dispatch }, usuario) {
+      console.log("usuario");
+      console.log(usuario);
+      return await axios({
+        url: "/api/usuario/login",
+        method: "post",
+        data: usuario.usuario
+      })
+        .then(res => {
+          commit("set_usuario_atual", res.data.usuario);
+          return res.data;
+        })
+        .catch(err => {
+          dispatch("a_enviarErro", err.response || err);
+        });
+    },
+    async act_mensagemSemPermissao({ commit, mensagem }) {
+      commit("set_mensagemSemPermissao", mensagem.texto);
     }
   },
   getters: {

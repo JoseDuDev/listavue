@@ -25,8 +25,13 @@
 
         <b-card-text>Para isso selecione um dos links abaixo:</b-card-text>
 
-        <router-link to="/usuario" class="card-link">Criar usuário</router-link>
-        <b-link href="#" class="card-link">Gerar uma lista</b-link>
+        <router-link to="/usuario" class="card-link botao"
+          >Criar usuário</router-link
+        >
+        <router-link to="/entrar" class="card-link botao">Entrar</router-link>
+        <router-link to="/lista" class="card-link botao"
+          >Gerar uma lista</router-link
+        >
       </b-card>
     </div>
   </div>
@@ -57,5 +62,11 @@ export default {
 .imglista {
   width: 100%;
   padding: 20px;
+}
+.botao {
+  background-color: #ccd6ec;
+  padding: 7px 15px;
+  border-radius: 10px;
+  box-shadow: 2px 3px 8px 1px #000;
 }
 </style>
