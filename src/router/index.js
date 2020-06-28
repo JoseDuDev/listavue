@@ -26,6 +26,12 @@ const routes = [
     }
   },
   {
+    path: "/lista",
+    name: "Lista",
+    component: () =>
+      import(/* webpackChunkName: "home" */ "../views/formularios/Lista.vue")
+  },
+  {
     path: "/usuario",
     name: "Usuário",
     component: () =>
@@ -49,8 +55,6 @@ const routes = [
         /* webpackChunkName: "usuario" */ "../views/formularios/Entrar.vue"
       ),
     async beforeEnter(to, from, next) {
-      console.log("entrar");
-      console.log(store.state);
       if (!store.state.usuario) {
         next();
       } else {

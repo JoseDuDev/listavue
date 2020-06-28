@@ -15,6 +15,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import ElementUI from "element-ui";
 import locale from "element-ui/lib/locale/lang/pt";
+import Select2 from "v-select2-component";
 
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
@@ -29,6 +30,8 @@ var g = require("./global");
 
 g.axiosNode(axios, process.env.VUE_APP_URL_API_NODE);
 g.axiosNet(axios, process.env.VUE_APP_URL_API_NET);
+
+Vue.component("Select2", Select2);
 
 new Vue({
   router,

@@ -19,54 +19,47 @@ export default new Vuex.Store({
   },
   mutations: {
     set_produtos(state, data) {
-      console.log(data);
       state.produtos = data;
     },
     set_setores(state, data) {
-      console.log(data);
       state.setores = data;
     },
     set_marcas(state, data) {
-      console.log(data);
       state.marcas = data;
     },
     set_listas(state, data) {
-      console.log(data);
       state.listas = data;
     },
     set_mensagemSemPermissao(state, data) {
-      console.log(data);
       state.marcas = data;
     },
     set_usuario(state, data) {
-      console.log(data);
       state.usuarios = data;
     },
     set_usuario_atual(state, data) {
-      console.log(data);
       state.usuario = data;
     }
   },
   actions: {
-    act_produtos({ commit }) {
+    async act_produtos({ commit }) {
       axios
         .get("/api/produto")
         .then(result => commit("set_produtos", result.data))
         .catch(console.error);
     },
-    act_setores({ commit }) {
+    async act_setores({ commit }) {
       axios
         .get("/api/setor")
         .then(result => commit("set_produtos", result.data))
         .catch(console.error);
     },
-    act_marcas({ commit }) {
+    async act_marcas({ commit }) {
       axios
         .get("/api/marca")
         .then(result => commit("set_marcas", result.data))
         .catch(console.error);
     },
-    act_listas({ commit }) {
+    async act_listas({ commit }) {
       axios
         .get("/api/lista")
         .then(result => commit("set_listas", result.data))
@@ -79,8 +72,6 @@ export default new Vuex.Store({
         .catch(console.error);
     },
     async act_usuario_atual({ commit, dispatch }, usuario) {
-      console.log("usuario");
-      console.log(usuario);
       return await axios({
         url: "/api/usuario/login",
         method: "post",

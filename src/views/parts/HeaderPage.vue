@@ -11,7 +11,6 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item router-link to="/" href="#">Home</b-nav-item>
           <b-nav-item router-link to="/listas" href="#">Listas</b-nav-item>
           <b-nav-item router-link to="/sobre" href="#">Sobre</b-nav-item>
         </b-navbar-nav>
@@ -32,7 +31,7 @@
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
-              <em>Fulano</em>
+              <em>{{ nome }}</em>
             </template>
             <b-dropdown-item href="#">Perfil</b-dropdown-item>
             <b-dropdown-item href="#">Sair</b-dropdown-item>
@@ -45,7 +44,19 @@
 
 <script>
 export default {
-  name: "HeaderPage"
+  name: "HeaderPage",
+  user: null,
+  computed: {
+    titulo() {
+      return this.$store.state.titulo;
+    },
+    subtitulo() {
+      return this.$store.state.subtitulo;
+    },
+    nome() {
+      return this.$store.state.usuario.nome;
+    }
+  }
 };
 </script>
 
